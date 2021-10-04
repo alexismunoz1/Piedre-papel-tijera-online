@@ -1,3 +1,4 @@
+import { stat } from "fs";
 import * as express from "express";
 import { firestore, rtdb } from "./rtdb";
 import * as cors from "cors";
@@ -14,6 +15,7 @@ app.use(express.static("dist"));
 const userCollection = firestore.collection("users");
 const roomCollection = firestore.collection("rooms");
 
+// Method to verify the development environment
 app.get("/env", (req, res) => {
    res.json({
       enviorment: process.env.NODE_ENV,
@@ -71,18 +73,53 @@ app.post("/createroom", (req, res) => {
          },
       })
       .then((rtdbRes) => {
-         const longRoomId = roomRef.key;
-         const shortRoomId = 1000 + Math.floor(Math.random() * 999);
+         const randomNum = 1000 + Math.floor(Math.random() * 999);
+         const roomId = randomNum.toString();
          roomCollection
-            .doc(shortRoomId.toString())
+            .doc(roomId)
             .set({
-               rtdbRoomId: longRoomId,
+               rtdbRoomId: roomRef.key,
             })
             .then(() => {});
          res.status(200).json({
-            id: shortRoomId.toString(),
+            id: roomId,
             rtdbRoomId: roomRef.key,
          });
+      });
+});
+
+app.get("/checkId/:roomId", (req, res) => {
+   const { roomId } = req.params;
+   roomCollection
+      .doc(roomId.toString())
+      .get()
+      .then((doc) => {
+         return res.status(200).json({
+            rtdbRoomId: doc.get("rtdbRoomId"),
+            exists: doc.exists,
+         });
+      });
+});
+
+app.get("/verifyUser/:rtdbRoomId", (req, res) => {
+   const { rtdbRoomId } = req.params;
+   const reference = rtdb.ref(`gameRooms/rooms/${rtdbRoomId}`);
+
+   reference.once("value", (snap) => {
+      res.status(200).json(snap.val());
+   });
+});
+
+app.post("/assignNamePlayer2/:rtdbRoomId", (req, res) => {
+   const { rtdbRoomId } = req.params;
+   const { userName } = req.body;
+   const roomRef = rtdb.ref(`/gameRooms/rooms/${rtdbRoomId}/player2`);
+   roomRef
+      .update({
+         userName,
+      })
+      .then((res) => {
+         res.status(200).json(`Push nombre jugador: ${userName}`);
       });
 });
 

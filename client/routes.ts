@@ -6,4 +6,5 @@ router.setRoutes([
    { path: "/", component: "home-page" },
    { path: "/singup", component: "singup-page" },
    { path: "/enter_room", component: "enter-room-page" },
+   { path: "/share_room_id", component: "share-room-id-page" },
 ]);

@@ -1,5 +1,4 @@
 import { Router } from "@vaadin/router";
-import { state } from "../../state";
 
 customElements.define(
    "home-page",
@@ -11,12 +10,19 @@ customElements.define(
             e.preventDefault();
             Router.go("/singup");
          });
+
+         const buttonEnterRoom = this.querySelector(".button__enter-room");
+
+         buttonEnterRoom.addEventListener("click", (e) => {
+            e.preventDefault();
+            Router.go("/enter_room");
+         });
       }
 
       render(): void {
          const style = document.createElement("style");
          this.innerHTML = `
-        <h1 class="titulo">Piedra <br> Papel o<br>Tijera </h1>
+        <h1 class="title">Piedra <br> Papel o<br>Tijera </h1>
 
         <div class="button-cont">
             <button class="button__new-game">New game</button>

@@ -5,29 +5,63 @@ customElements.define(
    "singup-page",
    class initSingupPage extends HTMLElement {
       connectedCallback() {
+         const rtdbRoomId: string = state.getState().rtdbRoomId;
+
          this.render();
 
          const buttonStart = this.querySelector(".form__button");
          buttonStart.addEventListener("click", (e) => {
             e.preventDefault();
 
-            const inputNamePlayer = (<HTMLInputElement>document.querySelector(".form__input-name"))
+            const namePlayer = (<HTMLInputElement>document.querySelector(".form__input-name"))
                .value;
-            state.createUser(inputNamePlayer).then(() => {
+            state.createUser(namePlayer).then(() => {
                const union: boolean = state.getState().union;
                if (union == false) {
-                  state.createRoom(inputNamePlayer).then((res) => {
+                  state.createRoom(namePlayer).then((res) => {
                      res.json().then((newRoomRes) => {
                         const currentState = state.getState();
                         const roomId = newRoomRes.id;
                         const rtdbRoomId = newRoomRes.rtdbRoomId;
 
-                        console.log("Se ha creado una sala");
-                        console.log("roomId:", roomId);
-                        console.log("rtdbRoomId:", rtdbRoomId);
+                        state.setState({
+                           ...currentState,
+                           myName: namePlayer,
+                           roomId,
+                           rtdbRoomId,
+                        });
 
-                        
+                        Router.go("/share_room_id");
                      });
+                  });
+               } else if (union == true) {
+                  state.verificateUsers(rtdbRoomId).then((verifyRes) => {
+                     const namePlayer1 = verifyRes.player1.userName;
+                     const namePlayer2 = verifyRes.player2.userName;
+
+                     if (namePlayer2 == false && namePlayer != namePlayer1) {
+                        state.assignNamePlayer2(namePlayer, rtdbRoomId).then(() => {
+                           const currentState = state.getState();
+
+                           state.setState({
+                              ...currentState,
+                              userName: namePlayer,
+                           });
+
+                           Router.go("/rules");
+                        });
+                     } else if (namePlayer == namePlayer1 || namePlayer == namePlayer2) {
+                        const currentState = state.getState();
+
+                        state.setState({
+                           ...currentState,
+                           userName: namePlayer,
+                        });
+
+                        Router.go("/rules");
+                     } else if (namePlayer != namePlayer1 || namePlayer != namePlayer2) {
+                        console.log("El nombre no coincide con el de ninguno de los dos jugadores");
+                     }
                   });
                }
             });

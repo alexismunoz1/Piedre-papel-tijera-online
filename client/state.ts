@@ -16,6 +16,10 @@ export const state = {
 
    setState(newState): void {
       this.data = newState;
+      for (const cb of this.listeners) {
+         cb(newState);
+      }
+      console.log(`Cambie, data:`, this.data);
    },
 
    createUser(userName: string): Promise<any> {
@@ -38,6 +42,30 @@ export const state = {
          },
          body: JSON.stringify({
             userName,
+         }),
+      });
+   },
+
+   validateRoomId(roomId: string): Promise<any> {
+      return fetch(`${API_BASE_URL}/checkId/${roomId}`, {
+         method: "get",
+      }).then((res) => res.json());
+   },
+
+   verificateUsers(rtdbRoomId: string): Promise<any> {
+      return fetch(`${API_BASE_URL}/verifyUser/${rtdbRoomId}`, {
+         method: "get",
+      }).then((res) => res.json());
+   },
+
+   assignNamePlayer2(namePlayer: string, rtdbRoomId: string): Promise<any> {
+      return fetch(`${API_BASE_URL}/assignNamePlayer2/${rtdbRoomId}`, {
+         method: "post",
+         headers: {
+            "Content-Type": "application/json",
+         },
+         body: JSON.stringify({
+            namePlayer,
          }),
       });
    },

@@ -6,35 +6,42 @@ customElements.define(
    class initEnterRoom extends HTMLElement {
       connectedCallback() {
          this.render();
+
+         const buttonCode = this.querySelector(".form-button");
+
+         buttonCode.addEventListener("click", (e) => {
+            const currentState = state.getState();
+            const inputCodeId = (<HTMLInputElement>document.querySelector(".form-input")).value;
+
+            state.validateRoomId(inputCodeId).then((res) => {
+               if (res.exists == true) {
+                  state.setState({
+                     ...currentState,
+                     union: res.exists,
+                     roomId: inputCodeId,
+                     rtdbRoomId: res.rtdbRoomId,
+                  });
+
+                  Router.go("/singup");
+               } else {
+                  state.setState({
+                     ...currentState,
+                     union: res.exists,
+                  });
+               }
+            });
+         });
       }
 
       render() {
          this.innerHTML = `
-        <header class="header"></header>
- 
-        <main class="main">
-           <h1 class="main__title">Soy un titulo</h1>
-        </main>
-        
-        <footer class="footer"></footer>
-        `;
+            <h1 class="title">Piedra <br> Papel o<br>Tijera </h1>
 
-         const mainTitle = this.querySelector(".main__title");
-         const texto: string = "";
-
-         if (texto == "hola") {
-            mainTitle.textContent = `
-             Hola, soy otro título.
-           `;
-         } else if (texto == "chau") {
-            mainTitle.textContent = `
-             Chau, soy otro título.
-          `;
-         } else {
-            mainTitle.textContent = `
-                El título sigue igual.
-            `;
-         }
+            <div class="form-cont">
+               <input type="text" class="form-input" placeholder="codigo" />
+               <button class="form-button">Ingresa a la sala</button>
+            </div>
+         `;
       }
    }
 );
