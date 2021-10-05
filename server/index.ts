@@ -1,4 +1,3 @@
-import { stat } from "fs";
 import * as express from "express";
 import { firestore, rtdb } from "./rtdb";
 import * as cors from "cors";
@@ -6,14 +5,14 @@ import * as path from "path";
 import { nanoid } from "nanoid";
 
 const port = process.env.PORT || 3000;
-
 const app = express();
-app.use(express.json());
-app.use(cors());
-app.use(express.static("dist"));
 
-const userCollection = firestore.collection("users");
-const roomCollection = firestore.collection("rooms");
+app.use(express.json());
+app.use(express.static("dist"));
+app.use(cors());
+
+const usersColl = firestore.collection("users");
+const roomsColl = firestore.collection("rooms");
 
 // Method to verify the development environment
 app.get("/env", (req, res) => {
@@ -26,12 +25,12 @@ app.get("/env", (req, res) => {
 already exists, it will return an error 400*/
 app.post("/singup", (req, res) => {
    const { userName } = req.body;
-   userCollection
+   usersColl
       .where("userName", "==", userName)
       .get()
       .then((result) => {
          if (result.empty) {
-            userCollection
+            usersColl
                .add({
                   userName,
                })
@@ -76,7 +75,7 @@ app.post("/createroom", (req, res) => {
          //Method to create a short roomId
          const randomNum = 1000 + Math.floor(Math.random() * 999);
          const roomId = randomNum.toString();
-         roomCollection
+         roomsColl
             .doc(roomId)
             .set({
                rtdbRoomId: roomRef.key,
@@ -91,7 +90,7 @@ app.post("/createroom", (req, res) => {
 
 app.get("/checkId/:roomId", (req, res) => {
    const { roomId } = req.params;
-   roomCollection
+   roomsColl
       .doc(roomId.toString())
       .get()
       .then((doc) => {

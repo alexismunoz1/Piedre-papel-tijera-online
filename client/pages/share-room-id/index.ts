@@ -8,11 +8,8 @@ customElements.define(
          state.subscribe(() => {
             const currentState = state.getState();
 
-            if (currentState.namePlayer2 == false) {
-               console.log("namePlayer2 == false");
-            }
-            if (currentState.namePlayer2 == true) {
-               console.log("namePlayer2 == true");
+            if (currentState.namePlayer2 != false) {
+               Router.go("/rules");
             }
          });
          this.render();

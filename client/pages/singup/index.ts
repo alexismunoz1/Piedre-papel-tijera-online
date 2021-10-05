@@ -30,6 +30,7 @@ customElements.define(
                            roomId,
                            rtdbRoomId,
                         });
+
                         state.suscribeRtdbRoom(rtdbRoomId);
                         Router.go("/share_room_id");
                      });
@@ -48,7 +49,7 @@ customElements.define(
                               userName: namePlayer,
                            });
 
-                           // Router.go("/rules");
+                           Router.go("/rules");
                         });
                      } else if (namePlayer == namePlayer1 || namePlayer == namePlayer2) {
                         const currentState = state.getState();
@@ -58,7 +59,7 @@ customElements.define(
                            userName: namePlayer,
                         });
 
-                        // Router.go("/rules");
+                        Router.go("/rules");
                      } else if (namePlayer != namePlayer1 || namePlayer != namePlayer2) {
                         console.log("El nombre no coincide con el de ninguno de los dos jugadores");
                      }
