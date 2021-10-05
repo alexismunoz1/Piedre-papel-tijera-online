@@ -73,6 +73,7 @@ app.post("/createroom", (req, res) => {
          },
       })
       .then((rtdbRes) => {
+         //Method to create a short roomId
          const randomNum = 1000 + Math.floor(Math.random() * 999);
          const roomId = randomNum.toString();
          roomCollection
@@ -114,13 +115,14 @@ app.post("/assignNamePlayer2/:rtdbRoomId", (req, res) => {
    const { rtdbRoomId } = req.params;
    const { userName } = req.body;
    const roomRef = rtdb.ref(`/gameRooms/rooms/${rtdbRoomId}/player2`);
-   roomRef
-      .update({
+   roomRef.update(
+      {
          userName,
-      })
-      .then((res) => {
+      },
+      () => {
          res.status(200).json(`Push nombre jugador: ${userName}`);
-      });
+      }
+   );
 });
 
 app.get("*", (req, res) => {

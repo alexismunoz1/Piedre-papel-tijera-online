@@ -1,11 +1,20 @@
 import { Router } from "@vaadin/router";
-import { stat } from "fs";
 import { state } from "../../state";
 
 customElements.define(
    "share-room-id-page",
    class initShareRoomId extends HTMLElement {
       connectedCallback() {
+         state.subscribe(() => {
+            const currentState = state.getState();
+
+            if (currentState.namePlayer2 == false) {
+               console.log("namePlayer2 == false");
+            }
+            if (currentState.namePlayer2 == true) {
+               console.log("namePlayer2 == true");
+            }
+         });
          this.render();
       }
 

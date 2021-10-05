@@ -16,10 +16,28 @@ export const state = {
 
    setState(newState): void {
       this.data = newState;
-      for (const cb of this.listeners) {
-         cb(newState);
-      }
-      console.log(`Cambie, data:`, this.data);
+      console.log(`I'm the state, i changed:`, this.data);
+   },
+
+   subscribe(callback: (any) => any) {
+      this.listeners.push(callback);
+   },
+
+   suscribeRtdbRoom(rtdbRoomId: string): void {
+      const rtdbRoomRef = rtdb.ref(`/gameRooms/rooms/${rtdbRoomId}`);
+      rtdbRoomRef.on("value", (snap) => {
+         const currentState = state.getState();
+         const rtdbPlayer1 = snap.val().player1;
+         const rtdbPlayer2 = snap.val().player2;
+         const namePlayer1 = rtdbPlayer1.userName;
+         const namePlayer2 = rtdbPlayer2.userName;
+
+         state.setState({
+            ...currentState,
+            namePlayer1,
+            namePlayer2,
+         });
+      });
    },
 
    createUser(userName: string): Promise<any> {
@@ -58,14 +76,14 @@ export const state = {
       }).then((res) => res.json());
    },
 
-   assignNamePlayer2(namePlayer: string, rtdbRoomId: string): Promise<any> {
+   assignNamePlayer2(userName: string, rtdbRoomId: string): Promise<any> {
       return fetch(`${API_BASE_URL}/assignNamePlayer2/${rtdbRoomId}`, {
          method: "post",
          headers: {
             "Content-Type": "application/json",
          },
          body: JSON.stringify({
-            namePlayer,
+            userName,
          }),
       });
    },
