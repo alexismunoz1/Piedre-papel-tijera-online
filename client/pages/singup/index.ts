@@ -10,19 +10,22 @@ customElements.define(
          this.render();
 
          const buttonStart = this.querySelector(".form__button");
+
          buttonStart.addEventListener("click", (e) => {
             e.preventDefault();
 
             const namePlayer = (<HTMLInputElement>document.querySelector(".form__input-name"))
                .value;
+
             state.createUser(namePlayer).then(() => {
                const union: boolean = state.getState().union;
+
                if (union == false) {
                   state.createRoom(namePlayer).then((res) => {
                      res.json().then((newRoomRes) => {
                         const currentState = state.getState();
                         const roomId = newRoomRes.id;
-                        const rtdbRoomId = newRoomRes.rtdbRoomId;
+                        const { rtdbRoomId } = newRoomRes;
 
                         state.setState({
                            ...currentState,

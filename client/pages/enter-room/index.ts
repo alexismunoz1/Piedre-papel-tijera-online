@@ -33,7 +33,7 @@ customElements.define(
          });
       }
 
-      render() {
+      render(): void {
          this.innerHTML = `
             <h1 class="title">Piedra <br> Papel o<br>Tijera </h1>
 

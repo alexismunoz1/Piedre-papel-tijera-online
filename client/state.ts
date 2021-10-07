@@ -34,11 +34,15 @@ export const state = {
          const rtdbPlayer2 = snap.val().player2;
          const namePlayer1 = rtdbPlayer1.userName;
          const namePlayer2 = rtdbPlayer2.userName;
+         const readyPlayer1 = rtdbPlayer1.ready;
+         const readyPlayer2 = rtdbPlayer2.ready;
 
          state.setState({
             ...currentState,
             namePlayer1,
             namePlayer2,
+            readyPlayer1,
+            readyPlayer2,
          });
       });
    },
@@ -87,6 +91,26 @@ export const state = {
          },
          body: JSON.stringify({
             userName,
+         }),
+      });
+   },
+
+   setReady(namePlayer: string, rtdbRoomId: string, ready: boolean): Promise<any> {
+      let player: string;
+      if (namePlayer == this.data.namePlayer1) {
+         player = "player1";
+      } else {
+         player = "player2";
+      }
+      return fetch(`${API_BASE_URL}/setReady`, {
+         method: "post",
+         headers: {
+            "Content-Type": "application/json",
+         },
+         body: JSON.stringify({
+            player,
+            rtdbRoomId,
+            ready,
          }),
       });
    },

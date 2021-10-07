@@ -119,9 +119,21 @@ app.post("/assignNamePlayer2/:rtdbRoomId", (req, res) => {
          userName,
       },
       () => {
-         res.status(200).json(`Push nombre jugador: ${userName}`);
+         res.status(200).json(`Push player name: ${userName}`);
       }
    );
+});
+
+app.post("/setReady", (req, res) => {
+   const { player, rtdbRoomId, ready } = req.body;
+   const roomRef = rtdb.ref(`/gameRooms/rooms/${rtdbRoomId}/${player}`);
+   roomRef
+      .update({
+         ready,
+      })
+      .then(() => {
+         res.status(200).json(`ready: ${ready}`);
+      });
 });
 
 app.get("*", (req, res) => {

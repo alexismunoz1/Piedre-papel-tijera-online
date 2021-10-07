@@ -12,11 +12,13 @@ customElements.define(
                Router.go("/rules");
             }
          });
+
          this.render();
       }
 
       render(): void {
-         const roomId = state.getState().roomId;
+         const { roomId } = state.getState();
+
          this.innerHTML = `
          <div class="text__cont">
              <h2 class="first__text">Compartí el código:</h2>
