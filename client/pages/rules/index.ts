@@ -6,14 +6,13 @@ customElements.define(
    class initRulesPage extends HTMLElement {
       connectedCallback() {
          this.render();
-         const { userName, rtdbRoomId } = state.getState();
-         const buttonPlay = this.querySelector(".button-play");
 
-         buttonPlay.addEventListener("click", (e) => {
-            e.preventDefault();
+         state.subscribe(() => {
+            const { readyPlayer1, readyPlayer2 } = state.getState();
 
-            state.setReadyPlayers(userName, rtdbRoomId, true);
-            Router.go("/waiting_room");
+            if (readyPlayer1 == true && readyPlayer2 == true) {
+               Router.go("/play_game");
+            }
          });
       }
 
@@ -25,6 +24,19 @@ customElements.define(
             
             <button class="button-play">Jugar</button>
          `;
+
+         const { userName, rtdbRoomId } = state.getState();
+         const buttonPlay = this.querySelector(".button-play");
+
+         buttonPlay.addEventListener("click", (e) => {
+            e.preventDefault();
+
+            state.setReadyPlayers(userName, rtdbRoomId, true);
+
+            this.innerHTML = `
+               <h3>Esperando a que Usuario presione ¡Jugar!...<h3>
+            `;
+         });
       }
    }
 );

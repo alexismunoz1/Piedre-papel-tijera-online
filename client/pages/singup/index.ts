@@ -5,7 +5,11 @@ customElements.define(
    "singup-page",
    class initSingupPage extends HTMLElement {
       connectedCallback() {
-         const rtdbRoomId: string = state.getState().rtdbRoomId;
+         const { rtdbRoomId } = state.getState() as { rtdbRoomId: string };
+
+         if (rtdbRoomId != undefined) {
+            state.suscribeRtdbRoom(rtdbRoomId);
+         }
 
          this.render();
 
