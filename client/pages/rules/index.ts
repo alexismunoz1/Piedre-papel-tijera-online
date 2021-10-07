@@ -6,11 +6,18 @@ customElements.define(
    class initRulesPage extends HTMLElement {
       connectedCallback() {
          this.render();
+         const { userName, rtdbRoomId } = state.getState();
+         const buttonPlay = this.querySelector(".button-play");
+
+         buttonPlay.addEventListener("click", (e) => {
+            e.preventDefault();
+
+            state.setReadyPlayers(userName, rtdbRoomId, true);
+            Router.go("/waiting_room");
+         });
       }
 
       render(): void {
-         const { userName, rtdbRoomId } = state.getState();
-
          this.innerHTML = `
             <h4 class="text-rules">Presioná jugar
             y elegí: piedra, papel o tijera antes 
@@ -18,14 +25,6 @@ customElements.define(
             
             <button class="button-play">Jugar</button>
          `;
-
-         const buttonPlay = this.querySelector(".button-play");
-
-         buttonPlay.addEventListener("click", (e) => {
-            e.preventDefault();
-            // state.setReady(userName, rtdbRoomId, true);
-            Router.go("/waiting_room");
-         });
       }
    }
 );

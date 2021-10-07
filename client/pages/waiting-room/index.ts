@@ -5,17 +5,17 @@ customElements.define(
    "waiting-room-page",
    class initWaitingRoomPage extends HTMLElement {
       connectedCallback() {
-         // state.subscribe(() => {
-         //    const { readyPlayer1, readyPlayer2 } = state.getState();
-         //    if (readyPlayer1 == true && readyPlayer2 == true) {
-         //       console.log(
-         //          "currentState.readyPlayer1 == true && currentState.readyPlayer2 == true"
-         //       );
-         //       Router.go("/play_game");
-         //    } else {
-         //       this.render();
-         //    }
-         // });
+         state.subscribe(() => {
+            const { readyPlayer1, readyPlayer2 } = state.getState();
+            if (readyPlayer1 == true && readyPlayer2 == true) {
+               console.log(
+                  "currentState.readyPlayer1 == true && currentState.readyPlayer2 == true"
+               );
+               Router.go("/play_game");
+            } else {
+               this.render();
+            }
+         });
          this.render();
       }
 

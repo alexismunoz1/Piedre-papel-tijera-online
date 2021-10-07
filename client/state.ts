@@ -95,11 +95,14 @@ export const state = {
       });
    },
 
-   setReady(namePlayer: string, rtdbRoomId: string, ready: boolean): Promise<any> {
+   setReadyPlayers(namePlayer: string, rtdbRoomId: string, ready: boolean): Promise<any> {
       let player: string;
       if (namePlayer == this.data.namePlayer1) {
+         console.log("es igual a namePlayer1", namePlayer == this.data.namePlayer1);
          player = "player1";
       } else {
+         console.log("es igual a namePlayer2", namePlayer == this.data.namePlayer2);
+
          player = "player2";
       }
       return fetch(`${API_BASE_URL}/setReady`, {
