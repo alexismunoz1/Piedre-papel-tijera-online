@@ -58,7 +58,7 @@ app.post("/createroom", (req, res) => {
             userName,
             score: 0,
             ready: false,
-            choice: "none",
+            moveChoise: "none",
             chose: false,
             winner: "none",
          },
@@ -66,7 +66,7 @@ app.post("/createroom", (req, res) => {
             userName: false,
             score: 0,
             ready: false,
-            choice: "none",
+            moveChoise: "none",
             chose: false,
             winner: "none",
          },
@@ -136,13 +136,13 @@ app.post("/setReady", (req, res) => {
       });
 });
 
-app.post("/setPlay:player", (req, res) => {
+app.post("/setPlay/:player", (req, res) => {
    const { player } = req.params;
    const { move, rtdbRoomId } = req.body;
    const roomRef = rtdb.ref(`/gameRooms/rooms/${rtdbRoomId}/${player}`);
    roomRef
       .update({
-         choise: move,
+         moveChoise: move,
          chose: true,
       })
       .then(() => {

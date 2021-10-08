@@ -36,6 +36,10 @@ export const state = {
          const namePlayer2 = rtdbPlayer2.userName;
          const readyPlayer1 = rtdbPlayer1.ready;
          const readyPlayer2 = rtdbPlayer2.ready;
+         const chosePlayer1 = rtdbPlayer2.chose;
+         const chosePlayer2 = rtdbPlayer2.ready;
+         const movePlayer1 = rtdbPlayer1.moveChoise;
+         const movePlayer2 = rtdbPlayer2.moveChoise;
 
          state.setState({
             ...currentState,
@@ -43,6 +47,10 @@ export const state = {
             namePlayer2,
             readyPlayer1,
             readyPlayer2,
+            chosePlayer1,
+            chosePlayer2,
+            movePlayer1,
+            movePlayer2,
          });
       });
    },
@@ -115,8 +123,13 @@ export const state = {
       });
    },
 
-   setMovePlayers(move: string, player: string, rtdbRoomId: string): Promise<any> {
-      return fetch(`${API_BASE_URL}/setReady/${player}`, {
+   setMovePlayers(move: movement, player: string, rtdbRoomId: string): Promise<any> {
+      if (player == this.data.namePlayer1) {
+         player = "player1";
+      } else {
+         player = "player2";
+      }
+      return fetch(`${API_BASE_URL}/setPlay/${player}`, {
          method: "post",
          headers: {
             "Content-Type": "application/json",
