@@ -114,4 +114,17 @@ export const state = {
          }),
       });
    },
+
+   setMovePlayers(move: string, player: string, rtdbRoomId: string): Promise<any> {
+      return fetch(`${API_BASE_URL}/setReady/${player}`, {
+         method: "post",
+         headers: {
+            "Content-Type": "application/json",
+         },
+         body: JSON.stringify({
+            move,
+            rtdbRoomId,
+         }),
+      });
+   },
 };

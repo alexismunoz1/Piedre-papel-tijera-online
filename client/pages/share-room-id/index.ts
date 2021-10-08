@@ -19,12 +19,29 @@ customElements.define(
          const { roomId } = state.getState();
 
          this.innerHTML = `
-         <div class="text__cont">
-             <h2 class="first__text">Compartí el código:</h2>
-             <h1 class="code__room-id">${roomId}</h1>
-             <h2 class="second__text">Con tu contrincante</h2>
-         </div>
+            <div class="text__cont">
+               <h2 class="first__text">Compartí el código:</h2>
+               <h1 class="code__room-id">${roomId}</h1>
+               <h2 class="second__text">Con tu contrincante</h2>
+            </div>
+
+            <div class="hands">
+               <hand-scissor></hand-scissor>
+               <hand-stone></hand-stone>
+               <hand-paper></hand-paper>
+            </div>
          `;
+
+         const style = document.createElement("style");
+         style.innerText = `
+               .hands {
+                  width: 100%;
+                  display: flex;
+                  justify-content: space-evenly;
+               }
+         `;
+
+         this.appendChild(style);
       }
    }
 );

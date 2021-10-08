@@ -41,7 +41,25 @@ customElements.define(
                <input type="text" class="form-input" placeholder="codigo" />
                <button class="form-button">Ingresa a la sala</button>
             </div>
+
+            <div class="hands">
+               <hand-scissor></hand-scissor>
+               <hand-stone></hand-stone>
+               <hand-paper></hand-paper>
+            </div>
          `;
+
+         const style = document.createElement("style");
+
+         style.innerText = `
+               .hands {
+                  width: 100%;
+                  display: flex;
+                  justify-content: space-evenly;
+               }
+         `;
+
+         this.appendChild(style);
       }
    }
 );

@@ -136,6 +136,20 @@ app.post("/setReady", (req, res) => {
       });
 });
 
+app.post("/setPlay:player", (req, res) => {
+   const { player } = req.params;
+   const { move, rtdbRoomId } = req.body;
+   const roomRef = rtdb.ref(`/gameRooms/rooms/${rtdbRoomId}/${player}`);
+   roomRef
+      .update({
+         choise: move,
+         chose: true,
+      })
+      .then(() => {
+         res.status(200).json(`The choise was ${move}`);
+      });
+});
+
 app.get("*", (req, res) => {
    res.sendFile(path.join(__dirname, "../dist/index.html"));
 });

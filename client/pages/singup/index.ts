@@ -77,8 +77,6 @@ customElements.define(
       }
 
       render(): void {
-         const style = document.createElement("style");
-
          this.innerHTML = `
             <h1 class="titulo">Piedra <br> Papel o<br>Tijera </h1>
             
@@ -87,7 +85,22 @@ customElements.define(
                 <input type="text" class="form__input-name" placeholder="name" />
                 <button class="form__button">Start</button>
             </form>
-          `;
+
+            <div class="hands">
+               <hand-scissor></hand-scissor>
+               <hand-stone></hand-stone>
+               <hand-paper></hand-paper>
+            </div>
+         `;
+
+         const style = document.createElement("style");
+         style.innerText = `
+               .hands {
+                  width: 100%;
+                  display: flex;
+                  justify-content: space-evenly;
+               }
+         `;
 
          this.appendChild(style);
       }

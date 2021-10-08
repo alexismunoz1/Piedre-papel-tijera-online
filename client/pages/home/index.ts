@@ -20,14 +20,30 @@ customElements.define(
       }
 
       render(): void {
-         const style = document.createElement("style");
          this.innerHTML = `
-        <h1 class="title">Piedra <br> Papel o<br>Tijera </h1>
+            <h1 class="title">Piedra <br> Papel o<br>Tijera </h1>
 
-        <div class="button-cont">
-            <button class="button__new-game">New game</button>
-            <button class="button__enter-room">Enter a room</button>
-        </div>`;
+            <div class="button-cont">
+               <button-comp class="button__new-game">New game</button-comp>
+               <button class="button__enter-room">Enter a room</button>
+            </div>
+                  
+            <div class="hands">
+               <hand-scissor></hand-scissor>
+               <hand-stone></hand-stone>
+               <hand-paper></hand-paper>
+            </div>
+         `;
+
+         const style = document.createElement("style");
+
+         style.innerText = `
+               .hands {
+                  width: 100%;
+                  display: flex;
+                  justify-content: space-evenly;
+               }
+         `;
 
          this.appendChild(style);
       }
