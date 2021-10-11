@@ -11,8 +11,7 @@ customElements.define(
       }
 
       render(): void {
-         const { userName, namePlayer1, namePlayer2, rtdbRoomId, chosePlayer1, chosePlayer2 } =
-            state.getState();
+         const { userName, rtdbRoomId, chosePlayer1, chosePlayer2 } = state.getState();
 
          this.innerHTML = `
             <h1>Play game page<h1>
@@ -45,14 +44,19 @@ customElements.define(
                const type = hands.getAttribute("class");
 
                if (type == "scissor") {
-                  console.log(`${userName} ha elegido "scissor"`);
-                  state.setMovePlayers("scissor", userName, rtdbRoomId);
-               } else if (type == "stone") {
-                  console.log(`${userName} ha elegido "stone"`);
-                  state.setMovePlayers("stone", userName, rtdbRoomId);
-               } else if (type == "paper") {
-                  console.log(`${userName} ha elegido "paper"`);
-                  state.setMovePlayers("paper", userName, rtdbRoomId);
+                  state.setMovePlayers("scissor", userName, rtdbRoomId).then(() => {
+                     state.whoWins();
+                  });
+               }
+               if (type == "stone") {
+                  state.setMovePlayers("stone", userName, rtdbRoomId).then(() => {
+                     state.whoWins();
+                  });
+               }
+               if (type == "paper") {
+                  state.setMovePlayers("paper", userName, rtdbRoomId).then(() => {
+                     state.whoWins();
+                  });
                }
             });
          }
@@ -65,6 +69,10 @@ customElements.define(
             if (this.counter == 0 && (chosePlayer1 == false || chosePlayer2 == false)) {
                clearInterval(countdown);
                Router.go("/rules");
+            }
+            if (this.counter == 0 && (chosePlayer1 == true || chosePlayer2 == true)) {
+               clearInterval(countdown);
+               Router.go("/results");
             }
          }, 1000);
 

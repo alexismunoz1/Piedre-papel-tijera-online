@@ -9,4 +9,5 @@ router.setRoutes([
    { path: "/share_room_id", component: "share-room-id-page" },
    { path: "/rules", component: "rules-page" },
    { path: "/play_game", component: "play-game-page" },
+   { path: "/results", component: "results-page" },
 ]);

@@ -1,3 +1,4 @@
+import { user } from "firebase-functions/v1/auth";
 import { rtdb } from "./rtdb";
 
 const API_BASE_URL = process.env.API_BASE_URL || "http://localhost:3000";
@@ -40,6 +41,9 @@ export const state = {
          const chosePlayer2 = rtdbPlayer2.ready;
          const movePlayer1 = rtdbPlayer1.moveChoise;
          const movePlayer2 = rtdbPlayer2.moveChoise;
+         const scorePlayer1 = rtdbPlayer1.score;
+         const scorePlayer2 = rtdbPlayer2.score;
+         const { winner } = snap.val();
 
          state.setState({
             ...currentState,
@@ -51,6 +55,9 @@ export const state = {
             chosePlayer2,
             movePlayer1,
             movePlayer2,
+            scorePlayer1,
+            scorePlayer2,
+            winner,
          });
       });
    },
@@ -104,10 +111,12 @@ export const state = {
    },
 
    setReadyPlayers(namePlayer: string, rtdbRoomId: string, ready: boolean): Promise<any> {
+      const { userName, namePlayer1, namePlayer2 } = state.getState();
       let player: string;
-      if (namePlayer == this.data.namePlayer1) {
+      if (namePlayer == namePlayer1) {
          player = "player1";
-      } else {
+      }
+      if (namePlayer == namePlayer2) {
          player = "player2";
       }
       return fetch(`${API_BASE_URL}/setReady`, {
@@ -124,11 +133,15 @@ export const state = {
    },
 
    setMovePlayers(move: movement, player: string, rtdbRoomId: string): Promise<any> {
-      if (player == this.data.namePlayer1) {
+      const { userName, namePlayer1, namePlayer2, movePlayer1, movePlayer2 } = state.getState();
+      if (userName == namePlayer1) {
          player = "player1";
-      } else {
+      }
+      if (userName == namePlayer2) {
          player = "player2";
       }
+
+      console.log(`player: ${player}, move: ${move}`);
       return fetch(`${API_BASE_URL}/setPlay/${player}`, {
          method: "post",
          headers: {
@@ -136,6 +149,84 @@ export const state = {
          },
          body: JSON.stringify({
             move,
+            rtdbRoomId,
+         }),
+      });
+   },
+
+   whoWins() {
+      const { chosePlayer1, chosePlayer2, movePlayer1, movePlayer2, rtdbRoomId } = state.getState();
+      let { scorePlayer1, scorePlayer2 } = state.getState();
+
+      if (chosePlayer1 == true && chosePlayer2 == true) {
+         if (movePlayer1 == movePlayer2) {
+            // Tied game
+            this.setWinerRtdb("tied game", rtdbRoomId);
+         }
+         if (
+            // Player 1 wins
+            (movePlayer1 == "scissor" && movePlayer2 == "paper") ||
+            (movePlayer1 == "stone" && movePlayer2 == "scissor") ||
+            (movePlayer1 == "paper" && movePlayer2 == "stone")
+         ) {
+            scorePlayer1 = scorePlayer1 + 1;
+
+            this.setScoreRtdb("player1", scorePlayer1, rtdbRoomId);
+            this.setWinerRtdb("player1", rtdbRoomId);
+         }
+         if (
+            // Player 2 wins
+            (movePlayer2 == "scissor" && movePlayer1 == "paper") ||
+            (movePlayer2 == "stone" && movePlayer1 == "scissor") ||
+            (movePlayer2 == "paper" && movePlayer1 == "stone")
+         ) {
+            scorePlayer2 = scorePlayer2 + 1;
+
+            this.setScoreRtdb("player2", scorePlayer2, rtdbRoomId);
+            this.setWinerRtdb("player2", rtdbRoomId);
+         }
+      }
+   },
+
+   setScoreRtdb(player: string, score: number, rtdbRoomId: string): void {
+      fetch(`${API_BASE_URL}/setScore/${player}`, {
+         method: "post",
+         headers: {
+            "Content-Type": "application/json",
+         },
+         body: JSON.stringify({
+            rtdbRoomId,
+            score,
+         }),
+      });
+   },
+
+   setWinerRtdb(winner: string, rtdbRoomId: string): void {
+      fetch(`${API_BASE_URL}/setWinner/${winner}`, {
+         method: "post",
+         headers: {
+            "Content-Type": "application/json",
+         },
+         body: JSON.stringify({
+            rtdbRoomId,
+         }),
+      });
+   },
+
+   backToFalse(player: string): Promise<any> {
+      const { userName, namePlayer1, namePlayer2, rtdbRoomId } = state.getState();
+      if (userName == namePlayer1) {
+         player = "player1";
+      }
+      if (userName == namePlayer2) {
+         player = "player2";
+      }
+      return fetch(`${API_BASE_URL}/backToFalse/${player}`, {
+         method: "post",
+         headers: {
+            "Content-Type": "application/json",
+         },
+         body: JSON.stringify({
             rtdbRoomId,
          }),
       });

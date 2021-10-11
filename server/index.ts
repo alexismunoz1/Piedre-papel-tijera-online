@@ -6,13 +6,12 @@ import { nanoid } from "nanoid";
 
 const port = process.env.PORT || 3000;
 const app = express();
+const usersColl = firestore.collection("users");
+const roomsColl = firestore.collection("rooms");
 
 app.use(express.json());
 app.use(express.static("dist"));
 app.use(cors());
-
-const usersColl = firestore.collection("users");
-const roomsColl = firestore.collection("rooms");
 
 // Method to verify the development environment
 app.get("/env", (req, res) => {
@@ -60,7 +59,6 @@ app.post("/createroom", (req, res) => {
             ready: false,
             moveChoise: "none",
             chose: false,
-            winner: "none",
          },
          player2: {
             userName: false,
@@ -68,7 +66,6 @@ app.post("/createroom", (req, res) => {
             ready: false,
             moveChoise: "none",
             chose: false,
-            winner: "none",
          },
       })
       .then((rtdbRes) => {
@@ -147,6 +144,53 @@ app.post("/setPlay/:player", (req, res) => {
       })
       .then(() => {
          res.status(200).json(`The choise was ${move}`);
+      });
+});
+
+app.post("/setScore/:player", (req, res) => {
+   const { player } = req.params;
+   const { score, rtdbRoomId } = req.body;
+   const roomRef = rtdb.ref(`/gameRooms/rooms/${rtdbRoomId}/${player}`);
+   roomRef
+      .update({
+         score,
+      })
+      .then(() => {
+         res.status(200).json({
+            message: `Poin to player: ${player}`,
+         });
+      });
+});
+
+app.post("/setWinner/:winner", (req, res) => {
+   const { winner } = req.params;
+   const { rtdbRoomId } = req.body;
+   const roomRef = rtdb.ref(`/gameRooms/rooms/${rtdbRoomId}`);
+   roomRef
+      .update({
+         winner,
+      })
+      .then(() => {
+         res.status(200).json({
+            message: "Winning set",
+         });
+      });
+});
+
+app.post("/backToFalse/:player", (req, res) => {
+   const { player } = req.params;
+   const { rtdbRoomId } = req.body;
+   const roomRef = rtdb.ref(`/gameRooms/rooms/${rtdbRoomId}/${player}`);
+   roomRef
+      .update({
+         moveChoise: "none",
+         chose: false,
+         ready: false,
+      })
+      .then(() => {
+         res.status(200).json({
+            message: "ready and chose, they went back to false",
+         });
       });
 });
 

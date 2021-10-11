@@ -6,10 +6,12 @@ customElements.define(
    class initRulesPage extends HTMLElement {
       connectedCallback() {
          const { userName, namePlayer1, namePlayer2, rtdbRoomId } = state.getState();
+         state.backToFalse(userName);
 
          if (namePlayer1 == userName) {
             state.setReadyPlayers(namePlayer1, rtdbRoomId, false);
-         } else {
+         }
+         if (namePlayer2 == userName) {
             state.setReadyPlayers(namePlayer2, rtdbRoomId, false);
          }
 
@@ -55,7 +57,8 @@ customElements.define(
          let waitingPlayer: string;
          if (userName == namePlayer1) {
             waitingPlayer = namePlayer2;
-         } else {
+         }
+         if (userName == namePlayer2) {
             waitingPlayer = namePlayer1;
          }
 
