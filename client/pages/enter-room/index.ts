@@ -35,28 +35,43 @@ customElements.define(
 
       render(): void {
          this.innerHTML = `
-            <h1 class="title">Piedra <br> Papel o<br>Tijera </h1>
+            <img-title class="img-title"></img-title>
 
             <div class="form-cont">
-               <input type="text" class="form-input" placeholder="codigo" />
-               <button class="form-button">Ingresa a la sala</button>
+               <input-comp type="text" class="form-input">código</input-comp>
+               <button-comp class="form-button">Ingresa a la sala</button-comp>
             </div>
 
             <div class="hands">
                <hand-scissor></hand-scissor>
                <hand-stone></hand-stone>
                <hand-paper></hand-paper>
-            </div>
-         `;
+            </div>`;
+         this.className = "this-const";
 
          const style = document.createElement("style");
 
          style.innerText = `
-               .hands {
-                  width: 100%;
-                  display: flex;
-                  justify-content: space-evenly;
-               }
+            .this-const {
+               text-align: center;
+            }
+            .img-title {
+               width: 284px;
+               margin: 0 auto 30px auto;
+            }
+            .form-cont {
+               display: flex;
+               flex-direction: column;
+               align-items: center;
+            }
+            .form-button {
+               margin: 20px 0 39px 0;
+            }
+            .hands {
+               width: 100%;
+               display: flex;
+               justify-content: space-evenly;
+            }
          `;
 
          this.appendChild(style);

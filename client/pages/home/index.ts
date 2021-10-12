@@ -21,11 +21,11 @@ customElements.define(
 
       render(): void {
          this.innerHTML = `
-            <h1 class="title">Piedra <br> Papel o<br>Tijera </h1>
+            <img-title class="img-title"></img-title>
 
             <div class="button-cont">
                <button-comp class="button__new-game">New game</button-comp>
-               <button class="button__enter-room">Enter a room</button>
+               <button-comp class="button__enter-room">Enter a room</button-comp>
             </div>
                   
             <div class="hands">
@@ -34,16 +34,33 @@ customElements.define(
                <hand-paper></hand-paper>
             </div>
          `;
+         this.className = "this-cont";
 
          const style = document.createElement("style");
 
          style.innerText = `
-               .hands {
-                  width: 100%;
-                  display: flex;
-                  justify-content: space-evenly;
-               }
-         `;
+            .this-cont {
+               display: flex;
+               flex-direction: column;
+               justify-content: center;
+            }
+            .img-title{
+               width: 284px;
+               margin: 0 auto 56px auto;
+            }
+            .button-cont {
+               display: flex;
+               flex-direction: column; 
+            }
+            .button__enter-room {
+               margin: 20px 0 39px 0;
+            }
+            .hands {
+               width: 100%;
+               display: flex;
+               justify-content: space-evenly;
+            }
+            `;
 
          this.appendChild(style);
       }

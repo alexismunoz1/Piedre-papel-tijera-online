@@ -78,12 +78,12 @@ customElements.define(
 
       render(): void {
          this.innerHTML = `
-            <h1 class="titulo">Piedra <br> Papel o<br>Tijera </h1>
+            <img-title class="img-title"></img-title>
             
             <form class="form__cont">
-                <p class="form__text">Your name</p>
-                <input type="text" class="form__input-name" placeholder="name" />
-                <button class="form__button">Start</button>
+                <p class="form__text">Tu nombre</p>
+                <input-comp type="text" class="form__input-name"></input-comp>
+                <button-comp class="form__button">Empezar</button-comp>
             </form>
 
             <div class="hands">
@@ -92,15 +92,37 @@ customElements.define(
                <hand-paper></hand-paper>
             </div>
          `;
+         this.className = "this-const";
 
          const style = document.createElement("style");
          style.innerText = `
-               .hands {
-                  width: 100%;
-                  display: flex;
-                  justify-content: space-evenly;
-               }
-         `;
+            .this-const {
+               text-align: center;
+            }
+            .img-title {
+               width: 284px;
+               margin: 0 auto 30px auto;
+            }
+            .form__text {
+               margin: 0;
+               font-size: 45px;
+               color: #000000;
+               font-family: var(--font-odibee-sans);
+            }
+            .form__cont {
+               display: flex;
+               flex-direction: column;
+               align-items: center;
+            }
+            .form__button {
+               margin: 20px 0 39px 0;
+            }
+            .hands {
+               width: 100%;
+               display: flex;
+               justify-content: space-evenly;
+            }
+            `;
 
          this.appendChild(style);
       }

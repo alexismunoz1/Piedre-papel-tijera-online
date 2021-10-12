@@ -13,5 +13,7 @@ import "./components/button/index";
 import "./components/paper/index";
 import "./components/stone/index";
 import "./components/scissor/index";
+import "./components/input/index";
+import "./components/title/index";
 
 // (function () {})();

@@ -1,7 +1,7 @@
-const papel = require("url:../../assets/papel.svg");
+const imgTitle = require("url:../../assets/imgWelcome.svg");
 
 customElements.define(
-   "hand-paper",
+   "img-title",
    class Papel extends HTMLElement {
       shadow: ShadowRoot;
       constructor() {
@@ -12,15 +12,15 @@ customElements.define(
       render() {
          const style = document.createElement("style");
          this.shadow.innerHTML = `
-                <img class="hand-paper" src="${papel}"/>
+                <img class="img-title" src="${imgTitle}">
             `;
 
          style.innerText = `
-            .hand-paper {
-              height: 100%;
-              width:100%
-            }`;
-
+            .img-title {
+                width: 284px;
+                margin: 0 auto 56px auto;
+            }
+            `;
          this.shadow.appendChild(style);
       }
    }
