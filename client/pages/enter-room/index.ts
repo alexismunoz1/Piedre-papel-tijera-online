@@ -11,7 +11,9 @@ customElements.define(
 
          buttonCode.addEventListener("click", (e) => {
             const currentState = state.getState();
-            const inputCodeId = (<HTMLInputElement>document.querySelector(".form-input")).value;
+            const inputCodeId = document
+               .querySelector(".form-input")
+               .shadowRoot.querySelector("input").value;
 
             state.validateRoomId(inputCodeId).then((res) => {
                if (res.exists == true) {

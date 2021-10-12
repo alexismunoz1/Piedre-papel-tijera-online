@@ -18,9 +18,6 @@ customElements.define(
          buttonStart.addEventListener("click", (e) => {
             e.preventDefault();
 
-            // const namePlayer = (<HTMLInputElement>document.querySelector(".form__input-name"))
-            //    .value;
-
             const namePlayer = document
                .querySelector(".form__input-name")
                .shadowRoot.querySelector("input").value;
