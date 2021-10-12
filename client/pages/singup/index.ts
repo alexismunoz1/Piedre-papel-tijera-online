@@ -18,8 +18,12 @@ customElements.define(
          buttonStart.addEventListener("click", (e) => {
             e.preventDefault();
 
-            const namePlayer = (<HTMLInputElement>document.querySelector(".form__input-name"))
-               .value;
+            // const namePlayer = (<HTMLInputElement>document.querySelector(".form__input-name"))
+            //    .value;
+
+            const namePlayer = document
+               .querySelector(".form__input-name")
+               .shadowRoot.querySelector("input").value;
 
             state.createUser(namePlayer).then(() => {
                const union: boolean = state.getState().union;
