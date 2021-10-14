@@ -98,11 +98,15 @@ customElements.define(
          const style = document.createElement("style");
          style.innerText = `
             .this-const {
+               width: 100%;
+               position: absolute;
+               bottom: 0;
                text-align: center;
+           }
             }
             .img-title {
                width: 284px;
-               margin: 0 auto 30px auto;
+               margin: 0 auto;
             }
             .form__text {
                margin: 0;

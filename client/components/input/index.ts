@@ -1,6 +1,6 @@
 customElements.define(
    "input-comp",
-   class Button extends HTMLElement {
+   class InputComp extends HTMLElement {
       shadow: ShadowRoot;
       constructor() {
          super();

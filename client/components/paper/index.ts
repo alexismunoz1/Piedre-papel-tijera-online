@@ -2,7 +2,7 @@ const papel = require("url:../../assets/papel.svg");
 
 customElements.define(
    "hand-paper",
-   class Papel extends HTMLElement {
+   class PaperComp extends HTMLElement {
       shadow: ShadowRoot;
       constructor() {
          super();
@@ -18,7 +18,8 @@ customElements.define(
          style.innerText = `
             .hand-paper {
               height: 100%;
-              width:100%
+              width:100%;
+              cursor: pointer;
             }`;
 
          this.shadow.appendChild(style);

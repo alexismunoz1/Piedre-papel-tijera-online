@@ -2,7 +2,7 @@ const imgTitle = require("url:../../assets/imgWelcome.svg");
 
 customElements.define(
    "img-title",
-   class Papel extends HTMLElement {
+   class TitleComp extends HTMLElement {
       shadow: ShadowRoot;
       constructor() {
          super();
@@ -18,7 +18,7 @@ customElements.define(
          style.innerText = `
             .img-title {
                 width: 284px;
-                margin: 0 auto 56px auto;
+                margin: 60px auto 56px auto;
             }
             `;
          this.shadow.appendChild(style);

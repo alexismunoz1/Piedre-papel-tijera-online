@@ -55,11 +55,17 @@ customElements.define(
 
          style.innerText = `
             .this-const {
-               text-align: center;
+               display: flex;
+               flex-direction: column;
+               align-items: center;
+               justify-content: center;
+               width: 100%;
+               position: absolute;
+               bottom: 0;
             }
             .img-title {
                width: 284px;
-               margin: 0 auto 30px auto;
+               margin: 0 auto;
             }
             .form-cont {
                display: flex;

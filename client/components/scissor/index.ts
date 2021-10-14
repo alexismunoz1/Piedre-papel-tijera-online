@@ -2,7 +2,7 @@ const tijera = require("url:../../assets/tijera.svg");
 
 customElements.define(
    "hand-scissor",
-   class Tijera extends HTMLElement {
+   class ScissorComp extends HTMLElement {
       shadow: ShadowRoot;
       constructor() {
          super();
@@ -18,7 +18,8 @@ customElements.define(
          style.innerText = `
             .hand-scissor {
               height: 100%;
-              width:100%
+              width:100%;
+              cursor: pointer;
             }
         `;
          this.shadow.appendChild(style);

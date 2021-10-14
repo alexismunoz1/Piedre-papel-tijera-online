@@ -15,5 +15,6 @@ import "./components/stone/index";
 import "./components/scissor/index";
 import "./components/input/index";
 import "./components/title/index";
+import "./components/data-comp/index";
 
 // (function () {})();

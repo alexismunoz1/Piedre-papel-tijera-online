@@ -1,6 +1,6 @@
 customElements.define(
    "button-comp",
-   class Button extends HTMLElement {
+   class ButtonComp extends HTMLElement {
       shadow: ShadowRoot;
       constructor() {
          super();
@@ -24,6 +24,7 @@ customElements.define(
               background: var(--color-blue-btn);
               border: 10px solid var(--color-blue-border);
               font-family: var(--font-odibee-sans);
+              cursor: pointer;
             }`;
 
          this.shadow.appendChild(button);

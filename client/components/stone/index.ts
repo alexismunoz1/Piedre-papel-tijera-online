@@ -2,7 +2,7 @@ const piedra = require("url:../../assets/piedra.svg");
 
 customElements.define(
    "hand-stone",
-   class Piedra extends HTMLElement {
+   class StoneComp extends HTMLElement {
       shadow: ShadowRoot;
       constructor() {
          super();
@@ -18,7 +18,8 @@ customElements.define(
          style.innerText = `
             .hand-stone {
               height: 100%;
-              width:100%
+              width:100%;
+              cursor: pointer;
             }
         `;
 
