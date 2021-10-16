@@ -17,8 +17,6 @@ customElements.define(
 
          style.innerText = `
             .hand-paper {
-              height: 100%;
-              width:100%;
               cursor: pointer;
             }`;
 

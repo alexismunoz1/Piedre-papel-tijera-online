@@ -111,7 +111,7 @@ export const state = {
    },
 
    setReadyPlayers(namePlayer: string, rtdbRoomId: string, ready: boolean): Promise<any> {
-      const { userName, namePlayer1, namePlayer2 } = state.getState();
+      const { namePlayer1, namePlayer2 } = state.getState();
       let player: string;
       if (namePlayer == namePlayer1) {
          player = "player1";
@@ -141,7 +141,6 @@ export const state = {
          player = "player2";
       }
 
-      console.log(`player: ${player}, move: ${move}`);
       return fetch(`${API_BASE_URL}/setPlay/${player}`, {
          method: "post",
          headers: {

@@ -82,8 +82,7 @@ customElements.define(
             <img-title class="img-title"></img-title>
             
             <form class="form__cont">
-                <p class="form__text">Tu nombre</p>
-                <input-comp type="text" class="form__input-name"></input-comp>
+                <input-comp type="text" class="form__input-name">Tu nombre</input-comp>
                 <button-comp class="form__button">Empezar</button-comp>
             </form>
 
@@ -102,17 +101,10 @@ customElements.define(
                position: absolute;
                bottom: 0;
                text-align: center;
-           }
             }
             .img-title {
                width: 284px;
                margin: 0 auto;
-            }
-            .form__text {
-               margin: 0;
-               font-size: 45px;
-               color: #000000;
-               font-family: var(--font-odibee-sans);
             }
             .form__cont {
                display: flex;

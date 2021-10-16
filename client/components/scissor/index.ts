@@ -17,8 +17,6 @@ customElements.define(
 
          style.innerText = `
             .hand-scissor {
-              height: 100%;
-              width:100%;
               cursor: pointer;
             }
         `;
