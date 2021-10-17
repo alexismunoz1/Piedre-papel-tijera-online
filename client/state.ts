@@ -27,6 +27,18 @@ export const state = {
       this.listeners.push(callback);
    },
 
+   initLocalStorage() {
+      const localData = JSON.parse(localStorage.getItem("data"));
+      console.log(localData, "mostrar local data");
+      if (localData != null) {
+         this.setState({
+            ...localData,
+         });
+         const { rtdbRoomId } = state.getState();
+         this.suscribeRtdbRoom(rtdbRoomId);
+      }
+   },
+
    suscribeRtdbRoom(rtdbRoomId: string): void {
       const rtdbRoomRef = rtdb.ref(`/gameRooms/rooms/${rtdbRoomId}`);
       rtdbRoomRef.on("value", (snap) => {
@@ -59,6 +71,14 @@ export const state = {
             scorePlayer2,
             winner,
          });
+
+         const afterUpgrade = state.getState();
+         localStorage.setItem(
+            "data",
+            JSON.stringify({
+               ...afterUpgrade,
+            })
+         );
       });
    },
 
