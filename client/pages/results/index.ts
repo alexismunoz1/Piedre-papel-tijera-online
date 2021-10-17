@@ -34,13 +34,13 @@ customElements.define(
             }
          }
          if (winner == "player2") {
-            if (userName == namePlayer1) {
-               image = resultImages.loose;
-               this.style.backgroundColor = `rgba(137, 73, 73, 0.6)`;
-            }
             if (userName == namePlayer2) {
                image = resultImages.win;
                this.style.backgroundColor = `rgba(106, 146, 74, 0.6)`;
+            }
+            if (userName == namePlayer1) {
+               image = resultImages.loose;
+               this.style.backgroundColor = `rgba(137, 73, 73, 0.6)`;
             }
          }
 
@@ -63,12 +63,33 @@ customElements.define(
             .this-results {
                width: 100%;
                height: 100vh;
+               padding: 25px 0;
                display: flex;
                align-items: center;
                flex-direction: column;
                justify-content: space-between;
             }
-         
+            .img-win {
+               width: 180px;
+            }
+            .score-cont {
+               width: 259px;
+               display: flex;
+               border-radius: 10px;
+               background: #ffffff;
+               flex-direction: column;
+               border: 10px solid #000000;
+               font-family: var(--font-odibee-sans);
+            }
+            .score-cont > h4 {
+               font-size: 55px;
+               margin: 0 auto;
+            }
+            .score-cont > p {
+               margin: 0 10px 5px 0;
+               font-size: 45px;
+               text-align: end;
+            }
          `;
 
          const buttonBack = this.querySelector(".button-back");

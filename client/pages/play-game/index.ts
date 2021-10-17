@@ -51,7 +51,7 @@ customElements.define(
                display: flex;
                align-items: center;
                justify-content: center;
-               margin: 0 auto 123px auto;
+               margin: 30px auto 123px auto;
                animation: spin 1s linear infinite;
             }
             @keyframes spin {
@@ -67,8 +67,15 @@ customElements.define(
             .scissor,
             .stone,
             .paper {
-               width: 90px;
+               height: 140px;
             }
+            @media (min-width: 769px) {
+               .scissor,
+               .stone,
+               .paper {
+                  height: 170px;
+               }
+             }
             .hands {
                width: 100%;
                display: flex;
