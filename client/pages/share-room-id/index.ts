@@ -36,8 +36,11 @@ customElements.define(
          style.innerText = `
                .share-romm-id-cont {
                   width: 100%;
-                  position: absolute;
-                  bottom: 0;
+                  height: 100vh;
+                  display: flex;
+                  align-items: center;
+                  flex-direction: column;
+                  justify-content: space-between;
                }
                .text__cont {
                   text-align: center;

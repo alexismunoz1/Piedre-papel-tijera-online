@@ -98,9 +98,11 @@ customElements.define(
          style.innerText = `
             .this-const {
                width: 100%;
-               position: absolute;
-               bottom: 0;
-               text-align: center;
+               height: 100vh;
+               display: flex;
+               align-items: center;
+               flex-direction: column;
+               justify-content: space-between;
             }
             .img-title {
                width: 284px;

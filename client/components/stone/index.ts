@@ -17,7 +17,8 @@ customElements.define(
 
          style.innerText = `
             .hand-stone {
-              cursor: pointer;
+               height: 130px;
+               cursor: pointer;
             }
         `;
 

@@ -18,6 +18,7 @@ customElements.define(
             .input-el {
                width: 296px;
                height: 66px;
+               text-align: center;
                border: 10px solid #182460;
                border-radius: 10px; 
                color: black;

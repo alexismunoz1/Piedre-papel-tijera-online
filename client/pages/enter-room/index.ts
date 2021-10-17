@@ -55,13 +55,12 @@ customElements.define(
 
          style.innerText = `
             .this-const {
-               display: flex;
-               flex-direction: column;
-               align-items: center;
-               justify-content: center;
                width: 100%;
-               position: absolute;
-               bottom: 0;
+               height: 100vh;
+               display: flex;
+               align-items: center;
+               flex-direction: column;
+               justify-content: space-between;
             }
             .img-title {
                width: 284px;

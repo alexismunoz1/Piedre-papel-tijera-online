@@ -3,6 +3,9 @@
    --color-blue-btn: #006cfc;
    --color-blue-border: #001997;
    --color-green-title: #009048;
+   --background-red: rgba(137, 73, 73, 0.6);
+   --background-green: rgba(106, 146, 74, 0.6);
+   --background-gray: rgba(106, 112, 101, 0.6);
 }
 
 * {

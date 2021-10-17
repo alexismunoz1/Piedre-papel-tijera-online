@@ -47,10 +47,11 @@ customElements.define(
          style.innerText = `
             .this-const {
                width: 100%;
-               position: absolute;
-               bottom: 0;
+               height: 100vh;
                display: flex;
+               align-items: center;
                flex-direction: column;
+               justify-content: space-between;
             }
             .img-rules {
                width: 280px;
@@ -105,10 +106,11 @@ customElements.define(
          style.innerText = `
             .this-const-waiting {
                width: 100%;
-               position: absolute;
-               bottom: 0;
+               height: 100vh;
                display: flex;
+               align-items: center;
                flex-direction: column;
+               justify-content: space-between;
             }
             .text-waiting {
                font-size: 35px;

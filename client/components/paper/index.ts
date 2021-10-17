@@ -17,7 +17,8 @@ customElements.define(
 
          style.innerText = `
             .hand-paper {
-              cursor: pointer;
+               height: 130px;
+               cursor: pointer;
             }`;
 
          this.shadow.appendChild(style);
