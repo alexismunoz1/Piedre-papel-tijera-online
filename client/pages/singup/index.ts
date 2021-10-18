@@ -69,7 +69,7 @@ customElements.define(
 
                         Router.go("/rules");
                      } else if (namePlayer != namePlayer1 || namePlayer != namePlayer2) {
-                        console.log("El nombre no coincide con el de ninguno de los dos jugadores");
+                        console.log("El nombre no coincide con el de ninguno de los dos jugadores"); 
                      }
                   });
                }

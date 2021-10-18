@@ -47,7 +47,8 @@ app.post("/singup", (req, res) => {
       });
 });
 
-//Method to create a new room
+//Method to create a new room, generate a complex id
+//for the room and also a short id of the room to share
 app.post("/createroom", (req, res) => {
    const { userName } = req.body;
    const roomRef = rtdb.ref(`/gameRooms/rooms/${nanoid()}`);
@@ -85,6 +86,7 @@ app.post("/createroom", (req, res) => {
       });
 });
 
+//Method to check the short id of a room
 app.get("/checkId/:roomId", (req, res) => {
    const { roomId } = req.params;
    roomsColl
@@ -98,6 +100,7 @@ app.get("/checkId/:roomId", (req, res) => {
       });
 });
 
+//Method to obtain the data of the two players in the room
 app.get("/verifyUser/:rtdbRoomId", (req, res) => {
    const { rtdbRoomId } = req.params;
    const reference = rtdb.ref(`gameRooms/rooms/${rtdbRoomId}`);
@@ -107,6 +110,7 @@ app.get("/verifyUser/:rtdbRoomId", (req, res) => {
    });
 });
 
+//Method for naming the second player
 app.post("/assignNamePlayer2/:rtdbRoomId", (req, res) => {
    const { rtdbRoomId } = req.params;
    const { userName } = req.body;
@@ -121,6 +125,7 @@ app.post("/assignNamePlayer2/:rtdbRoomId", (req, res) => {
    );
 });
 
+//Method to indicate that the player is ready
 app.post("/setReady", (req, res) => {
    const { player, rtdbRoomId, ready } = req.body;
    const roomRef = rtdb.ref(`/gameRooms/rooms/${rtdbRoomId}/${player}`);
@@ -133,6 +138,7 @@ app.post("/setReady", (req, res) => {
       });
 });
 
+//Method to update the user's move
 app.post("/setPlay/:player", (req, res) => {
    const { player } = req.params;
    const { move, rtdbRoomId } = req.body;
@@ -147,6 +153,7 @@ app.post("/setPlay/:player", (req, res) => {
       });
 });
 
+//Method to update player's score
 app.post("/setScore/:player", (req, res) => {
    const { player } = req.params;
    const { score, rtdbRoomId } = req.body;
@@ -162,6 +169,7 @@ app.post("/setScore/:player", (req, res) => {
       });
 });
 
+//Method to update who won the round
 app.post("/setWinner/:winner", (req, res) => {
    const { winner } = req.params;
    const { rtdbRoomId } = req.body;
@@ -177,6 +185,7 @@ app.post("/setWinner/:winner", (req, res) => {
       });
 });
 
+//Method to update the starting value of the parameters, "moveChoise", "chose" and "ready"
 app.post("/backToFalse/:player", (req, res) => {
    const { player } = req.params;
    const { rtdbRoomId } = req.body;

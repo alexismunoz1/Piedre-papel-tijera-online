@@ -23,11 +23,11 @@ export const state = {
       console.log(`I'm the state, i changed:`, this.data);
    },
 
-   subscribe(callback: (any) => any) {
+   subscribe(callback: (any) => any): void {
       this.listeners.push(callback);
    },
 
-   initLocalStorage() {
+   initLocalStorage(): void {
       const localData = JSON.parse(localStorage.getItem("data"));
       console.log(localData, "mostrar local data");
       if (localData != null) {
